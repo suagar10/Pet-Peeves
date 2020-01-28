@@ -4,6 +4,7 @@ from tensorflow.keras.layers import Conv2D
 from tensorflow.keras.layers import MaxPooling2D
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
+from tensorflow.keras.models import load_model
 
 #Initializing the CNN
 classifier=Sequential()
@@ -47,16 +48,15 @@ classifier.fit_generator(
         validation_steps=2000)
 
 classifier.save('one-layer.h5')
-classifier.load_model('one-layer.h5')
+classifier=load_model('one-layer.h5')
 
 from tensorflow.keras.preprocessing import image
 import numpy as np
 
-testing=image.load_img('testImage.jpg', target_size = (64, 64))
+testing=image.load_img('testImage1.jpg', target_size = (64, 64))
 testing=image.img_to_array(testing)
 testing=np.expand_dims(testing, axis=0)
 result=classifier.predict(testing)
-training_set.class_indices
 if result[0][0]>=0.5:
         print('Its a Dog')
 else:
