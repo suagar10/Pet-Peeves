@@ -17,7 +17,7 @@ classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = [
 classifier.summary()
 
 #Fitting to Images
-from tensorflow.keras.preprocessing import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 train_datagen = ImageDataGenerator(
         rescale=1./255,
@@ -25,23 +25,39 @@ train_datagen = ImageDataGenerator(
         zoom_range=0.2,
         horizontal_flip=True)
 
-test_datagen = ImageDataGenerator(rescale=1./255)
+test_datagen=ImageDataGenerator(rescale=1./255)
 
-train_generator = train_datagen.flow_from_directory(
-        'data/train',
-        target_size=(150, 150),
+train_generator=train_datagen.flow_from_directory(
+        'dataset/training_set',
+        target_size=(64, 64),
         batch_size=32,
         class_mode='binary')
 
-validation_generator = test_datagen.flow_from_directory(
-        'data/validation',
-        target_size=(150, 150),
+validation_generator=test_datagen.flow_from_directory(
+        'dataset/test_set',
+        target_size=(64, 64),
         batch_size=32,
         class_mode='binary')
 
-model.fit_generator(
+classifier.fit_generator(
         train_generator,
-        steps_per_epoch=2000,
-        epochs=50,
+        steps_per_epoch=8000,
+        epochs=25,
         validation_data=validation_generator,
-        validation_steps=800)
+        validation_steps=2000)
+
+classifier.save('one-layer.h5')
+classifier.load_model('one-layer.h5')
+
+from tensorflow.keras.preprocessing import image
+import numpy as np
+
+testing=image.load_img('testImage.jpg', target_size = (64, 64))
+testing=image.img_to_array(testing)
+testing=np.expand_dims(testing, axis=0)
+result=classifier.predict(testing)
+training_set.class_indices
+if result[0][0]>=0.5:
+        print('Its a Dog')
+else:
+        print('Its a Cat')
