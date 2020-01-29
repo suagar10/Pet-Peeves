@@ -55,7 +55,7 @@ classifier=load_model('two-layer.h5')
 from tensorflow.keras.preprocessing import image
 import numpy as np
 
-testing=image.load_img('testImage1.jpg', target_size = (128, 128))
+testing=image.load_img('testImage.jpg', target_size = (128, 128))
 testing=image.img_to_array(testing)
 testing=np.expand_dims(testing, axis=0)
 result=classifier.predict(testing)
