@@ -8,9 +8,9 @@ from tensorflow.keras.models import load_model
 
 #Initializing the CNN
 classifier=Sequential()
-classifier.add(Conv2D(64, (3, 3), input_shape = (128, 128, 3), activation = 'relu'))
+classifier.add(Conv2D(32, (3, 3), input_shape = (128, 128, 3), activation = 'relu'))
 classifier.add(MaxPooling2D(pool_size = (2,2)))
-classifier.add(Conv2D(128, (3, 3), activation = 'relu'))
+classifier.add(Conv2D(64, (3, 3), activation = 'relu'))
 classifier.add(MaxPooling2D(pool_size = (2,2)))
 classifier.add(Flatten())
 classifier.add(Dense(units=128, activation = 'relu'))
