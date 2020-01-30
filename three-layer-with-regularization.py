@@ -22,6 +22,8 @@ classifier.add(MaxPooling2D(pool_size = (2,2)))
 classifier.add(Flatten())
 classifier.add(Dense(units=128, activation = 'relu'))
 classifier.add(Dropout(0.2))
+classifier.add(Dense(units=64, activation = 'relu'))
+classifier.add(Dropout(0.2))
 classifier.add(Dense(units=1, activation = 'sigmoid'))
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
